@@ -10,14 +10,24 @@ from dotenv import load_dotenv
 router = Router()
 load_dotenv()
 
+
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     await message.reply(f'Доброе утро {message.from_user.first_name}!!!!!!',
                         reply_markup=await bt.get_goroscope(message.from_user.id))
+    await message.answer("Почему не здороваемся?")
+
+
+@router.message(F.text=='Привет' or F.text=='Хай' or F.text=='Здравствуй')
+async def start_but(message: Message):
+    await message.reply(f'Так-то лучше {message.from_user.first_name}',
+        reply_markup = bt.keyboard)
+
 
 @router.message(Command('help'))
 async def get_help(message: Message):
     await message.answer('Buttom help')
+
 
 @router.message(F.text=='Погода')
 async def get_weather(message: Message):
@@ -40,11 +50,16 @@ async def get_weather(message: Message):
     # отправляем значения пользователю
     await message.answer(f'{w_now} \n{w_feels} \n{w_description} \n{w_wint}')
 
-
                                     
 @router.message(F.text=='Котики')
 async def how_are_you(message:Message):
-    await message.answer('Good')
+    photo_kotic_url = 'https://api.thecatapi.com/v1/images/search'
+    url_photo= requests.get(url=photo_kotic_url).json()
+    photo1 = url_photo[0]
+    photo = photo1['url']
+    print(photo)
+    await message.answer_photo(photo=photo)
+
 
 @router.message(F.photo)
 async def get_photo(message: Message):
