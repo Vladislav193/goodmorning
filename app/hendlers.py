@@ -1,7 +1,7 @@
 import os
-
 import app.keyboard as bt
 import requests
+
 from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
@@ -29,14 +29,19 @@ async def get_weather(message: Message):
     # получаем данные о температуре и о том, как она ощущается
     temperature = round(weather_data['main']['temp'])
     temperature_feels = round(weather_data['main']['feels_like'])
+    description = weather_data['weather']
+    des = description[0]
+    wint = weather_data['wind']['speed']
     # формируем ответы
     w_now = 'Сейчас в городе ' + city + ' ' + str(temperature) + ' °C'
     w_feels = 'Ощущается как ' + str(temperature_feels) + ' °C'
+    w_description = 'Сейчас в городе ' + des['description']
+    w_wint = (f'Скорость ветра {str(wint)} м/с')
     # отправляем значения пользователю
-    await message.answer(f'{w_now} \n{w_feels}')
+    await message.answer(f'{w_now} \n{w_feels} \n{w_description} \n{w_wint}')
 
 
-
+                                    
 @router.message(F.text=='Котики')
 async def how_are_you(message:Message):
     await message.answer('Good')
