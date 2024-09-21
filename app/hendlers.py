@@ -51,14 +51,21 @@ async def get_weather(message: Message):
     await message.answer(f'{w_now} \n{w_feels} \n{w_description} \n{w_wint}')
 
                                     
-@router.message(F.text=='Котики')
+@router.message((F.text=='Котики') | (F.text=='Собачки'))
 async def how_are_you(message:Message):
-    photo_kotic_url = 'https://api.thecatapi.com/v1/images/search'
-    url_photo= requests.get(url=photo_kotic_url).json()
+    mes = message.text
+    if mes == 'Котики':
+        photo_kotic_url = 'https://api.thecatapi.com/v1/images/search'
+        url_pic = photo_kotic_url
+
+    elif mes == 'Собачки':
+        photo_dog_url = 'https://api.thedogapi.com/v1/images/search'
+        url_pic = photo_dog_url
+
+    url_photo= requests.get(url=url_pic).json()
     photo1 = url_photo[0]
     photo = photo1['url']
-    print(photo)
-    await message.answer_photo(photo=photo)
+    await message.answer_photo(photo=photo, caption='Специально для тебя')
 
 
 @router.message(F.photo)

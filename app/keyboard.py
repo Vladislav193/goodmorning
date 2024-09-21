@@ -2,7 +2,8 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 keyboard =ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Котики'),KeyboardButton(text='Погода')],
+    [KeyboardButton(text='Котики'),KeyboardButton(text='Собачки')],
+    [KeyboardButton(text='Погода')],
 ],
     resize_keyboard=True,
     input_field_placeholder='Выбери'
@@ -12,9 +13,8 @@ keyboard =ReplyKeyboardMarkup(keyboard=[
 #     [InlineKeyboardButton(text='Гороскоп', url=f'https://horoscope.sakh.com/{user[id]}')]
 # ])
 
-#1978591255
-#словарь из пользователей virgo
-users: dict = {439845524: 'virgo'}
+
+users: dict = {439845524: 'virgo',1978591255: 'leo'}
 
 
 async def get_goroscope(id):
