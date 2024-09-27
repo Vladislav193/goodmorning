@@ -15,6 +15,7 @@ keyboard =ReplyKeyboardMarkup(keyboard=[
 
 
 
+users: set = {21312321: "leo"}
 
 
 async def get_goroscope(id):
