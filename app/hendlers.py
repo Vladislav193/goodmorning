@@ -6,7 +6,6 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from dotenv import load_dotenv
-from datetime import datetime
 
 
 router = Router()

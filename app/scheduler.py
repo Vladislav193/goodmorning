@@ -1,11 +1,9 @@
-import aiohttp
 import requests
-from aiogram.client.session.aiohttp import AiohttpSession
+
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
-users: set = {21312321}
-
+users= (439845524,1978591255,)
 
 async def send_good_morning(bot):
     for user_id in users:
