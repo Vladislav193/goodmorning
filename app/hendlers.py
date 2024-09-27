@@ -6,16 +6,18 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from dotenv import load_dotenv
+from datetime import datetime
+
 
 router = Router()
 load_dotenv()
-
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     await message.reply(f'Доброе утро {message.from_user.first_name}!!!!!!',
                         reply_markup=await bt.get_goroscope(message.from_user.id))
     await message.answer("Почему не здороваемся?")
+
 
 
 @router.message(F.text=='Привет' or F.text=='Хай' or F.text=='Здравствуй')
@@ -63,8 +65,7 @@ async def how_are_you(message:Message):
         url_pic = photo_dog_url
 
     url_photo= requests.get(url=url_pic).json()
-    photo1 = url_photo[0]
-    photo = photo1['url']
+    photo = url_photo[0]['url']
     await message.answer_photo(photo=photo, caption='Специально для тебя')
 
 

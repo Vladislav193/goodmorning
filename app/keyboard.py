@@ -14,7 +14,7 @@ keyboard =ReplyKeyboardMarkup(keyboard=[
 # ])
 
 
-users: dict = {439845524: 'virgo',1978591255: 'leo'}
+
 
 
 async def get_goroscope(id):
