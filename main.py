@@ -11,12 +11,12 @@ from app.scheduler import schedule_good_morning
 
 async def main():
     load_dotenv()
-    TOKEN = os.getenv('TOKEN')
-    if not TOKEN:
+    TOKEN = str(os.getenv('TOKEN'))
+    if not TOKEN or not isinstance(TOKEN, str):
         logging.error("not TOKEN")
     else:
         logging.info(f"token:{TOKEN}")
-    bot = Bot(token=TOKEN)
+    bot = Bot(token=str(TOKEN))
     dp = Dispatcher()
     dp.include_router(router=router)
     scheduler = AsyncIOScheduler()
