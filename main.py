@@ -11,7 +11,7 @@ from app.scheduler import schedule_good_morning
 
 async def main():
     load_dotenv()
-    TOKEN = str(os.getenv('TOKEN'))
+    TOKEN = os.getenv('TOKEN')
     if not TOKEN:
         logging.error("not TOKEN")
     else:
