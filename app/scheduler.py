@@ -24,4 +24,4 @@ async def send_image(bot, user_id):
 
 
 def schedule_good_morning(scheduler: AsyncIOScheduler, bot):
-    scheduler.add_job(send_good_morning, 'cron', hour=16, minute=40, args=[bot])
+    scheduler.add_job(send_good_morning, 'cron', hour=9, minute=00, args=[bot])
