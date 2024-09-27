@@ -12,6 +12,7 @@ from app.scheduler import schedule_good_morning
 async def main():
     load_dotenv()
     TOKEN = str(os.getenv('TOKEN'))
+    print(f"Token{TOKEN}")
     bot = Bot(token=TOKEN)
     if not TOKEN:
         raise ValueError(
