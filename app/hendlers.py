@@ -49,7 +49,7 @@ async def get_weather(message: Message):
     w_description = 'Сейчас в городе ' + des['description']
     w_wint = (f'Скорость ветра {str(wint)} м/с')
     # отправляем значения пользователю
-    await message.answer(f'{w_now} \n{w_feels} \n{w_description} \n{w_wint}')
+    await message.answer(f'🌡️{w_now} \n{w_feels}  \n{w_description}🏙️ \n{w_wint}💨')
 
                                     
 @router.message((F.text=='Котики') | (F.text=='Собачки'))
@@ -65,7 +65,7 @@ async def how_are_you(message:Message):
 
     url_photo= requests.get(url=url_pic).json()
     photo = url_photo[0]['url']
-    await message.answer_photo(photo=photo, caption='Специально для тебя')
+    await message.answer_photo(photo=photo, caption='Специально для тебя \U00002764 \U0001F618')
 
 
 @router.message(F.photo)
