@@ -49,7 +49,7 @@ async def get_weather(message: Message):
     w_description = 'Сейчас в городе ' + des['description']
     w_wint = (f'Скорость ветра {str(wint)} м/с')
     # отправляем значения пользователю
-    await message.answer(f'🌡️{w_now} \n{w_feels}  \n{w_description}🏙️ \n{w_wint}💨')
+    await message.answer(f'{w_now}🌡️ \n{w_feels}🌡️  \n{w_description}🏙️ \n{w_wint}💨')
 
                                     
 @router.message((F.text=='Котики') | (F.text=='Собачки'))
