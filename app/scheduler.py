@@ -14,12 +14,18 @@ async def get_users_all(session: AsyncSession):
 
 
 async def send_good_morning(bot):
+<<<<<<< HEAD
     async for session in get_session():
         users = await get_users_all(session)
         for user in users:
             print(user.name)
             await bot.send_message(chat_id=user.user_id, text=f'\U0001F305 Доброе утро {user.name} \U00002615')
             await send_image(bot, user.user_id)
+=======
+    for user_id in users:
+        await bot.send_message(chat_id=user_id, text=f'\U0001F305 Доброе утро \U00002615')
+        await send_image(bot, user_id)
+>>>>>>> e5db41373f701fcb3177213f98592885e4dc506a
 
 
 async def send_image(bot, user_id):
@@ -27,7 +33,19 @@ async def send_image(bot, user_id):
     get_photo = requests.get(image_url).json()
     photo = get_photo[0]['url']
     await bot.send_photo(user_id, photo=photo, caption=f'А это специально для тебя \U00002764 \U0001F618')
+<<<<<<< HEAD
 
 
 def schedule_good_morning(scheduler: AsyncIOScheduler, bot):
     scheduler.add_job(send_good_morning, 'cron', hour=6, minute=00, args=[bot])
+=======
+    # async with aiohttp.ClientSession() as session:
+    #     async with session.get(photo) as resp:
+    #         if resp.status == 200:
+    #             img_data = await resp.read()
+
+
+
+def schedule_good_morning(scheduler: AsyncIOScheduler, bot):
+    scheduler.add_job(send_good_morning, 'cron', hour=6, minute=00, args=[bot])
+>>>>>>> e5db41373f701fcb3177213f98592885e4dc506a
