@@ -56,7 +56,7 @@ async def buttom_goroscope(message: Message):
         result = await session.execute(select(User).where(User.user_id == id))
         sign_user = result.scalar_one_or_none()
         text_goroscope = await parser(sign_user.zodiac_sign)
-        await message.answer(f'Твой гороскоп на сегодня \U0001F618 \n {text_goroscope}')
+        await message.answer(f'Твой гороскоп на сегодня {sign_user.zodiac_sign} \U0001F618 \n {text_goroscope}')
 
 
 @router.message(F.text=='Погода')
