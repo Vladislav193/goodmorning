@@ -7,6 +7,7 @@ from app.hendlers import router
 from dotenv import load_dotenv
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from app.scheduler import schedule_good_morning
+from database import init_db
 
 
 async def main():
@@ -22,6 +23,7 @@ async def main():
     scheduler = AsyncIOScheduler()
     schedule_good_morning(scheduler=scheduler, bot=bot)
     scheduler.start()
+    await init_db()
     await dp.start_polling(bot)
 
 
