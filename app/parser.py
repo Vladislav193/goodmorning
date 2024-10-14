@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 
 async def parser(sign):
-# URL страницы с гороскопом для Девы
     url = f"https://1001goroskop.ru/?znak={sign}"
 
     # Заголовки для имитации запроса из браузера

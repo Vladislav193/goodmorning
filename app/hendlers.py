@@ -93,13 +93,7 @@ async def buttom_img(message:Message):
 
     url_photo= requests.get(url=url_pic).json()
     photo = url_photo[0]['url']
-<<<<<<< HEAD
     await message.answer_photo(photo=photo, caption=f'\U00002764 \U0001F618 Специально для тебя {emoji}')
-=======
-    await message.answer_photo(photo=photo, caption='Специально для тебя \U00002764 \U0001F618')
 
 
-@router.message(F.photo)
-async def get_photo(message: Message):
-    await message.answer(f'ID фото: {message.photo[-1].file_id}')
->>>>>>> e5db41373f701fcb3177213f98592885e4dc506a
+
