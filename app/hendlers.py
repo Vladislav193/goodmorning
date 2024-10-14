@@ -75,10 +75,6 @@ async def get_weather(message: Message):
     w_feels = 'Ощущается как ' + str(temperature_feels) + ' °C'
     w_description = 'Сейчас в городе ' + des['description']
     w_wint = (f'Скорость ветра {str(wint)} м/с')
-<<<<<<< HEAD
-=======
-    # отправляем значения пользователю
->>>>>>> e5db41373f701fcb3177213f98592885e4dc506a
     await message.answer(f'{w_now}🌡️ \n{w_feels}🌡️  \n{w_description}🏙️ \n{w_wint}💨')
 
                                     
