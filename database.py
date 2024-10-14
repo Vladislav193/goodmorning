@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
 load_dotenv()
-
 DATABASE_URL=os.getenv('DATABASE_URL') or os.getenv('DATABASE_PUBLIC_URL')
 print(DATABASE_URL)
 if not DATABASE_URL:
