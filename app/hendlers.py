@@ -31,13 +31,13 @@ async def cmd_start(message: Message, state: FSMContext):
         await message.answer(f'Привет {message.from_user.first_name}!!!!!!')
         await message.answer("Напиши свой знак зодиака")
         await state.set_state(Form.waiting_for_zodic)
+        await message.reply(f'Выбери {message.from_user.first_name}', reply_markup=keyboard)
         await sign_zodiac()
         await state.clear()
-        await message.reply(f'Выбери {message.from_user.first_name}', reply_markup=keyboard)
 
 
 @router.message(Form.waiting_for_zodic)
-async def sign_zodiac(message:Message):
+async def sign_zodiac(message:Message, state: FSMContext):
     user = message.text.lower().strip()
     user_id = message.from_user.id
     async for session in get_session():
@@ -47,6 +47,7 @@ async def sign_zodiac(message:Message):
             user_res = result.scalar_one_or_none()
             user_res.zodiac_sign = user_zodiac
             await session.commit()
+            await state.clear()
             await message.reply("Спасибо")
 
 
