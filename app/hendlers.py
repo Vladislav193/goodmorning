@@ -31,6 +31,7 @@ async def cmd_start(message: Message, state: FSMContext):
         await message.answer(f'Привет {message.from_user.first_name}!!!!!!')
         await message.answer("Напиши свой знак зодиака")
         await state.set_state(Form.waiting_for_zodic)
+        await sign_zodiac()
         await state.clear()
         await message.reply(f'Выбери {message.from_user.first_name}', reply_markup=keyboard)
 
