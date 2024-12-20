@@ -18,7 +18,7 @@ router = Router()
 load_dotenv()
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, state: FSMContext):
+async def cmd_start(message: Message):
     user_id = message.from_user.id
     user_name = message.from_user.first_name
     async with AsyncSessionLocal() as session:
@@ -29,12 +29,22 @@ async def cmd_start(message: Message, state: FSMContext):
             session.add(new_user)
             await session.commit()
         await message.answer(f'Привет {message.from_user.first_name}!!!!!!')
-        await message.answer("Напиши свой знак зодиака")
-        await state.set_state(Form.waiting_for_zodic)
         await message.reply(f'Выбери {message.from_user.first_name}', reply_markup=keyboard)
-        await sign_zodiac()
-        await state.clear()
 
+
+
+@router.message(F.text=='Гороскоп')
+async def buttom_goroscope(message: Message, state: FSMContext):
+    id = message.from_user.id
+    async for session in get_session():
+        result = await session.execute(select(User).where(User.user_id == id))
+        sign_user = result.scalar_one_or_none()
+        if sign_user.zodiac_sign is None:
+            await message.answer("Напиши свой знак зодиака")
+            await state.set_state(Form.waiting_for_zodic)
+            return
+        text_goroscope = await parser(sign_user.zodiac_sign)
+        await message.answer(f'Твой гороскоп на сегодня {sign_user.zodiac_sign} \U0001F618 \n {text_goroscope}')
 
 @router.message(Form.waiting_for_zodic)
 async def sign_zodiac(message:Message, state: FSMContext):
@@ -47,20 +57,10 @@ async def sign_zodiac(message:Message, state: FSMContext):
             user_res = result.scalar_one_or_none()
             user_res.zodiac_sign = user_zodiac
             await session.commit()
-            await state.clear()
             await message.reply("Спасибо")
-
-
-@router.message(F.text=='Гороскоп')
-async def buttom_goroscope(message: Message):
-    id = message.from_user.id
-    async for session in get_session():
-        result = await session.execute(select(User).where(User.user_id == id))
-        sign_user = result.scalar_one_or_none()
-        text_goroscope = await parser(sign_user.zodiac_sign)
-        await message.answer(f'Твой гороскоп на сегодня {sign_user.zodiac_sign} \U0001F618 \n {text_goroscope}')
-
-
+            text_goroscope = await parser(user)
+            await message.answer(f'Твой гороскоп на сегодня {user} \U0001F618 \n {text_goroscope}')
+            await state.clear()
 @router.message(F.text=='Погода')
 async def get_weather(message: Message):
     """Реализация кнопки погоды"""
